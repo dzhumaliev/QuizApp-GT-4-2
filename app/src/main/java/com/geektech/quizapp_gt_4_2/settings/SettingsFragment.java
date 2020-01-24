@@ -47,8 +47,6 @@ public class SettingsFragment extends Fragment {
                 Log.d("ololo", s);
             }
         });
-
-        mViewModel.onLoginClick();
     }
 
 }
