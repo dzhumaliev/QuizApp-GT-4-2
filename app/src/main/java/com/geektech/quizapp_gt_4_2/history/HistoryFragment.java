@@ -4,28 +4,22 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.geektech.quizapp_gt_4_2.R;
+import com.geektech.quizapp_gt_4_2.core.CoreFragment;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends CoreFragment {
 
     private HistoryViewModel mViewModel;
 
-    public static HistoryFragment newInstance() {
-        return new HistoryFragment();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_history;
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_history, container, false);
+    public static HistoryFragment newInstance() {
+        return new HistoryFragment();
     }
 
     @Override

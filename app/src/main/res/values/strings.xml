@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">QuizApp-GT-4-2</string>
+
+    <string-array name="categories">
+        <item>Any</item>
+        <item>History</item>
+        <item>Computer</item>
+        <item>TODO</item>
+    </string-array>
+
+    <string-array name="difficulty">
+        <item>Any</item>
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>
