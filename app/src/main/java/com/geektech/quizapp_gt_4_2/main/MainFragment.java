@@ -22,7 +22,7 @@ public class MainFragment extends CoreFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.main_fragment;
+        return R.layout.fragment_main;
     }
 
     @Override
