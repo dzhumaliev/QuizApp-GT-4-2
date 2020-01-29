@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
-        mViewModel.onIncrementClick();
-
-
         mViewPager = findViewById(R.id.main_view_pager);
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
@@ -67,25 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        App.quizApiClient.getQuestions(new IQuizApiClient.QuestionsCallback() {
-            @Override
-            public void onSuccess(List<Question> questions) {
-                for (Question question : questions) {
-                    Log.d("ololo", question.getQuestion() + " " + question.getDifficulty());
-                }
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Log.e("ololo", e.getMessage(), e);
-            }
-        });
     }
 
     private class MainPagerAdapter extends FragmentPagerAdapter {
 
-        public MainPagerAdapter(@NonNull FragmentManager fm) {
+        MainPagerAdapter(@NonNull FragmentManager fm) {
             super(fm);
         }
 

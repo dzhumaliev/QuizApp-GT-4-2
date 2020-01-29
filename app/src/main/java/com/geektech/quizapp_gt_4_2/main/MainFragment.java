@@ -1,6 +1,5 @@
 package com.geektech.quizapp_gt_4_2.main;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.util.Log;
 import android.view.View;
 
 import com.geektech.quizapp_gt_4_2.R;
@@ -38,13 +36,6 @@ public class MainFragment extends CoreFragment {
 
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
-
-        mViewModel.message.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Log.d("ololo", s);
-            }
-        });
     }
 
 }

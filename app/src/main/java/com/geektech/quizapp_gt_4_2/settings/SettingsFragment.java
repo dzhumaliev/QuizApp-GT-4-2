@@ -17,8 +17,6 @@ import com.geektech.quizapp_gt_4_2.main.MainViewModel;
 
 public class SettingsFragment extends Fragment {
 
-    private MainViewModel mViewModel;
-
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
     }
@@ -37,16 +35,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        mViewModel = ViewModelProviders.of(this)
-                .get(MainViewModel.class);
-
-        mViewModel.message.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Log.d("ololo", s);
-            }
-        });
     }
 
 }

@@ -5,8 +5,6 @@ import android.util.Log;
 import com.geektech.quizapp_gt_4_2.core.CoreCallback;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
@@ -39,26 +37,6 @@ public class QuizApiClient implements IQuizApiClient {
             @Override
             public void onFailure(Exception e) {
                 callback.onFailure(e);
-            }
-        });
-
-        call.enqueue(new Callback<QuizQuestionsResponse>() {
-            @Override
-            public void onResponse(Call<QuizQuestionsResponse> call, Response<QuizQuestionsResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        callback.onSuccess(response.body().getResults());
-                    } else {
-                        callback.onFailure(new Exception("Response body is empty " + response.code()));
-                    }
-                } else {
-                    callback.onFailure(new Exception("Request failed " + response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<QuizQuestionsResponse> call, Throwable t) {
-                callback.onFailure(new Exception(t));
             }
         });
     }
