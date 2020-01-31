@@ -2,6 +2,7 @@ package com.geektech.quizapp_gt_4_2.main;
 
 import androidx.appcompat.widget.AppCompatSeekBar;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.geektech.quizapp_gt_4_2.R;
 import com.geektech.quizapp_gt_4_2.core.CoreFragment;
+import com.geektech.quizapp_gt_4_2.quiz.QuizActivity;
 import com.geektech.quizapp_gt_4_2.utils.SimpleSeekBarChangeListener;
 
 import org.angmarch.views.NiceSpinner;
@@ -53,6 +55,13 @@ public class MainFragment extends CoreFragment {
         });
 
         mStart.setOnClickListener(v -> {
+            QuizActivity.start(
+                    getContext(),
+                    10,
+                    null,
+                    "easy"
+            );
+
             Log.d("ololo", "Start properties - amount:" + mSeekBar.getProgress()
                     + " category: " + mCategorySpinner.getSelectedIndex()
                     + " difficulty: " + mDifficultySpinner.getSelectedIndex());

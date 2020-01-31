@@ -16,7 +16,7 @@ public class QuizApiClient implements IQuizApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    private QuizApi client = retrofit.create(QuizApi.class);
+    private TriviaApi client = retrofit.create(TriviaApi.class);
 
     @Override
     public void getQuestions(final QuestionsCallback callback) {
@@ -41,7 +41,7 @@ public class QuizApiClient implements IQuizApiClient {
         });
     }
 
-    private interface QuizApi {
+    private interface TriviaApi {
         @GET("api.php")
         Call<QuizQuestionsResponse> getQuestions(
                 @Query("amount") int amount,
