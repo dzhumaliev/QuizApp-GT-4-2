@@ -1,14 +1,13 @@
-package com.geektech.quizapp_gt_4_2.core;
+package com.geektech.quizapp_gt_4_2.ux.core;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class CoreCallback<T> implements Callback<T> {
+public abstract class CoreCallBack<T> implements Callback<T> {
 
     public abstract void onSuccess(T result);
     public abstract void onFailure(Exception e);
-
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {

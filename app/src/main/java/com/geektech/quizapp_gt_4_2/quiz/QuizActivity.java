@@ -1,23 +1,25 @@
 package com.geektech.quizapp_gt_4_2.quiz;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.geektech.quizapp_gt_4_2.R;
-import com.geektech.quizapp_gt_4_2.model.Question;
+import com.geektech.quizapp_gt_4_2.model.Category;
 import com.geektech.quizapp_gt_4_2.quiz.recycler.QuizAdapter;
 import com.geektech.quizapp_gt_4_2.quiz.recycler.QuizViewHolder;
+import com.geektech.quizapp_gt_4_2.result.ResultActivity;
+import com.geektech.quizapp_gt_4_2.utils.App;
+import com.geektech.quizapp_gt_4_2.ux.data.remote.IQuizApiClient;
 
 import java.util.List;
 
@@ -26,65 +28,99 @@ public class QuizActivity extends AppCompatActivity
 
     //region Static
 
-    private static String EXTRA_AMOUNT = "amount";
-    private static String EXTRA_CATEGORY = "category";
-    private static String EXTRA_DIFFICULTY = "difficulty";
-
-    public static void start(
-            Context context,
-            Integer amount,
-            Integer category,
-            String difficulty
-    ) {
-        Intent intent = new Intent(context, QuizActivity.class);
-
-        intent.putExtra(EXTRA_AMOUNT, amount);
-        intent.putExtra(EXTRA_CATEGORY, category);
-        intent.putExtra(EXTRA_DIFFICULTY, difficulty);
-
-        context.startActivity(intent);
-    }
-
-    //endregion
-
-    private QuizViewModel viewModel;
     private RecyclerView recyclerView;
+    private QuizViewModel quizViewModel;
+    private TextView textCategory;
+    private TextView textAmoung;
     private QuizAdapter adapter;
+    private Button img;
+    private Button button;
+    private ProgressBar progressBar;
+    private int category;
+    private int amount;
+    private String difficulty;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        img = findViewById(R.id.img_back);
+        category = getIntent().getIntExtra("niceCategory", 0) - 1;
+        amount = getIntent().getIntExtra("textAmoung", 0);
+        difficulty = getIntent().getStringExtra("niceDifficulty");
+        textCategory = findViewById(R.id.text_difficult);
+        button = findViewById(R.id.btn_skip);
+        textAmoung = findViewById(R.id.tv_amoung);
+        progressBar = findViewById(R.id.progress_bar);
+        recyclerView = findViewById(R.id.recycler_view);
+        onClickImage();
+
+        quizViewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
+
+        quizViewModel.currentPosition.observe(this, integer -> {
+            recyclerView.smoothScrollToPosition(integer);
+            progressBar.setMax(amount);
+            progressBar.setProgress(integer);
+            textAmoung.setText(integer.toString() + "/" + amount);
+            if (integer > amount) {
+                startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+            }
+        });
+
+        quizViewModel.getQuestions(amount, category + 9, difficulty);
+        showData();
+        categories();
+        initRecycler();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public void initRecycler() {
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         adapter = new QuizAdapter(this);
-        recyclerView = findViewById(R.id.quiz_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(
-                this,
-                RecyclerView.HORIZONTAL,
-                false
-        ));
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setOnTouchListener((v, event) -> true);
+    }
 
-        viewModel = ViewModelProviders.of(this)
-                .get(QuizViewModel.class);
+    public void categories() {
+        App.quizApiClient.getCategory(new IQuizApiClient.CategoryCallback() {
+            @Override
+            public void onSuccess(List<Category> questions) {
+                textCategory.setText(questions.get(category).getName());
 
-        viewModel.questions.observe(this, questions -> {
-            adapter.setQuestions(questions);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
         });
+    }
 
-        viewModel.currentQuestionPosition.observe(this, currentQuestion -> {
-            String hint = currentQuestion + 1 + "/" + adapter.getItemCount();
-
-            recyclerView.smoothScrollToPosition(currentQuestion);
+    private void showData() {
+        quizViewModel.questions.observe(this, question -> {
+            adapter.setQuestions(question);
+            adapter.upData(question);
         });
+    }
 
-        viewModel.init(10, 0, "");
+    public void onClick(View view) {
+        quizViewModel.onSkip();
+    }
+
+    public void onClickImage() {
+        img.setOnClickListener(v -> quizViewModel.getMinus());
     }
 
     @Override
     public void onAnswerClick(int position, int selectedAnswerPosition) {
-        viewModel.onAnswerClick(position, selectedAnswerPosition);
+        quizViewModel.onAnswerClick(position, selectedAnswerPosition);
+        quizViewModel.finishQuiz.observe(this, integer -> startActivity(new Intent(getApplicationContext(), ResultActivity.class)));
     }
 }

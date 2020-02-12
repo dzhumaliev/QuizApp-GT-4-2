@@ -7,9 +7,62 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
+    <Button
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:src="@drawable/img_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_difficult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#000"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        app:layout_constraintLeft_toRightOf="@+id/text_difficult"
+        app:layout_constraintRight_toLeftOf="@+id/text_difficult"
+        app:layout_constraintTop_toBottomOf="@+id/text_difficult" />
+
+    <TextView
+        android:id="@+id/tv_amoung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/progress_bar"
+        app:layout_constraintRight_toLeftOf="@+id/progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/quiz_recycler"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_question"
+        android:orientation="vertical"/>
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Skip"
+        android:onClick="onClick"
+        android:textColor="#fff"
+        android:background="@drawable/btn_skip"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="50dp"
+        tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

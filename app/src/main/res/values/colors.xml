@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#BE52F2</color>
-    <color name="colorPrimaryDark">#3F3356</color>
-    <color name="colorAccent">#BE52F2</color>
+    <color name="colorPrimary">#9C47AA</color>
+    <color name="colorPrimaryDark">#9C47AA</color>
+    <color name="colorAccent">#9C47AA</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorCorrectAnswer">#09CF11</color>
+    <color name="colorInCorrectAnswer">#FF4D4D</color>
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>
@@ -12,5 +15,9 @@
     <color name="light_grey">#A9A9A9</color>
     <color name="blue">#6979F8</color>
     <color name="red">#FF6581</color>
+    <color name="btn_cycrle">#6979F8</color>
+    <color name="dark_blue">#6979F8</color>
+
     <color name="green">#4CE2A7</color>
+    <color name="InactiveBottomNavIconColor">#fff</color>
 </resources>

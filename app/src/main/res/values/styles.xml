@@ -58,4 +58,24 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="category_mi">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#1F2041</item>
+    </style>
+
+    <style name="correct_ans">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#801F2041</item>
+    </style>
+
+    <style name="difficulty_">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#801F2041</item>
+    </style>
+
+    <style name="may_2019_20">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">#801F2041</item>
+    </style>
+
 </resources>

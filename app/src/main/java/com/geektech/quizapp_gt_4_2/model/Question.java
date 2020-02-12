@@ -1,37 +1,31 @@
 package com.geektech.quizapp_gt_4_2.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Question {
-
+    @SerializedName("category")
+    @Expose
     private String category;
-
-    private String type;
-
-    private EDifficulty difficulty;
-
+    @SerializedName("type")
+    @Expose
+    private EType type;
+    @SerializedName("difficulty")
+    @Expose
+    private String difficulty;
+    @SerializedName("question")
+    @Expose
     private String question;
-
     @SerializedName("correct_answer")
+    @Expose
     private String correctAnswer;
-
     @SerializedName("incorrect_answers")
-    private List<String> incorrectAnswers;
-
+    @Expose
+    private List<String> incorrectAnswers = null;
     private List<String> answers;
-
     private Integer selectedAnswerPosition;
-
-    public Question(String category, String type, EDifficulty difficulty, String question, String correctAnswer, List<String> incorrectAnswers) {
-        this.category = category;
-        this.type = type;
-        this.difficulty = difficulty;
-        this.question = question;
-        this.correctAnswer = correctAnswer;
-        this.incorrectAnswers = incorrectAnswers;
-    }
 
     public String getCategory() {
         return category;
@@ -41,19 +35,19 @@ public class Question {
         this.category = category;
     }
 
-    public String getType() {
+    public EType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(EType type) {
         this.type = type;
     }
 
-    public EDifficulty getDifficulty() {
+    public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(EDifficulty difficulty) {
+    public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
 

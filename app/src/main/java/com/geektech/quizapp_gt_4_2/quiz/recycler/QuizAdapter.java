@@ -13,9 +13,11 @@ import com.geektech.quizapp_gt_4_2.model.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class QuizAdapter extends RecyclerView.Adapter<QuizViewHolder> {
 
-    private ArrayList<Question> questions = new ArrayList<>();
+    private List<Question> list = new ArrayList<>();
+
+    private List<Question> question = new ArrayList<>();
     private QuizViewHolder.Listener listener;
 
     public QuizAdapter(QuizViewHolder.Listener listener) {
@@ -24,30 +26,30 @@ public class QuizAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.item_question,
-                parent,
-                false
-        );
+    public QuizViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question, parent, false);
         return new QuizViewHolder(view, listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof QuizViewHolder) {
-            ((QuizViewHolder) holder).onBind(questions.get(position));
-        }
+    public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
+        holder.Question(question.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return questions.size();
+        return question.size();
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions.clear();
-        this.questions.addAll(questions);
+    public void upData(List<Question> list) {
+        this.question = list;
         notifyDataSetChanged();
     }
+
+    public void setQuestions(List<Question> question) {
+        this.list.clear();
+        this.list.addAll(question);
+        notifyDataSetChanged();
+    }
+
 }
